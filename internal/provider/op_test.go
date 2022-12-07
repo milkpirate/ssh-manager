@@ -19,14 +19,14 @@ const (
 func TestOnePassword_Add(t *testing.T) {
 	expectedCommands := []test.FakeCommand{
 		{
-			Command: fmt.Sprintf("op get item %s%s", provider.BitwardenDefaultPrefix, "test"),
+			Command: fmt.Sprintf("op get item %s%s", provider.OnePasswordDefaultPrefix, "test"),
 			StdErr:  test.Must(test.LoadFixture("op_get.txt")),
 		},
 		{
 			Command: fmt.Sprintf(
 				"op create item login notesPlain=%s --title %s%s --tags %s",
 				encodedValues,
-				provider.BitwardenDefaultPrefix,
+				provider.OnePasswordDefaultPrefix,
 				"test",
 				strings.Replace(provider.OnePasswordDefaultPrefix, "__", "", 1),
 			),
@@ -60,14 +60,14 @@ func TestOnePassword_Add(t *testing.T) {
 func TestOnePassword_Add_ItemExists(t *testing.T) {
 	expectedCommands := []test.FakeCommand{
 		{
-			Command: fmt.Sprintf("op get item %s%s", provider.BitwardenDefaultPrefix, "test"),
+			Command: fmt.Sprintf("op get item %s%s", provider.OnePasswordDefaultPrefix, "test"),
 			StdOut:  test.Must(test.LoadFixture("op_get.txt")),
 		},
 		{
 			Command: fmt.Sprintf(
 				"op create item login notesPlain=%s --title %s%s --tags %s",
 				encodedValues,
-				provider.BitwardenDefaultPrefix,
+				provider.OnePasswordDefaultPrefix,
 				"test",
 				strings.Replace(provider.OnePasswordDefaultPrefix, "__", "", 1),
 			),
@@ -91,7 +91,7 @@ func TestOnePassword_Add_ItemExists(t *testing.T) {
 func TestOnePassword_Get(t *testing.T) {
 	expectedCommands := []test.FakeCommand{
 		{
-			Command: fmt.Sprintf("op get item %s%s", provider.BitwardenDefaultPrefix, "test"),
+			Command: fmt.Sprintf("op get item %s%s", provider.OnePasswordDefaultPrefix, "test"),
 			StdOut:  test.Must(test.LoadFixture("op_get.txt")),
 		},
 	}
@@ -110,7 +110,7 @@ func TestOnePassword_Get(t *testing.T) {
 func TestOnePassword_GetNotFound(t *testing.T) {
 	expectedCommands := []test.FakeCommand{
 		{
-			Command: fmt.Sprintf("op get item %s%s", provider.BitwardenDefaultPrefix, "test"),
+			Command: fmt.Sprintf("op get item %s%s", provider.OnePasswordDefaultPrefix, "test"),
 			StdErr:  test.Must(test.LoadFixture("op_get_not_found.txt")),
 		},
 	}
