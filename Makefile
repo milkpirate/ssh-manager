@@ -11,7 +11,7 @@ LDFLAGS            = -ldflags "-buildid=$(GIT_VERSION)"
 BUFFER            := $(shell mktemp)
 REPORT_DIR         = dist/report
 COVER_PROFILE      = $(REPORT_DIR)/coverage.out
-TARGETOS		   = darwin
+TARGETOS		   = windows
 TARGETARCH		   = amd64
 BINARY_NAME        = dist/ssh-manager
 

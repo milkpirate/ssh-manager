@@ -16,6 +16,7 @@ import (
 const (
 	// BitwardenDefaultPrefix default prefix for BitwardenItem.
 	BitwardenDefaultPrefix = "SSHKeys__"
+	BitwardenFolder        = "ssh-agent"
 	// BitwardenCommand base command for Bitwarden.
 	BitwardenCommand = "bw"
 )
@@ -41,7 +42,12 @@ func (b Bitwarden) GetName() string {
 
 // Add adds given item to Bitwarden.
 func (b Bitwarden) Add(item *Item) error {
-	_, err := b.Get(GetOptions{
+	err := b.createFolder()
+	if err != nil {
+		return err
+	}
+
+	_, err = b.Get(GetOptions{
 		Name: item.Name,
 	})
 	if err == nil {
@@ -232,6 +238,38 @@ func (b Bitwarden) Sync() error {
 	}
 
 	log.Debugln("Syncing Bitwarden Vault.")
+
+	return nil
+}
+
+func (b Bitwarden) createFolder() error {
+	bwItem := BitwardenItem{
+		Name: BitwardenFolder,
+	}
+
+	bwItemByte, err := json.Marshal(bwItem)
+	if err != nil {
+		return err
+	}
+
+	command := b.Commander.Executor.CommandContext(
+		context.Background(),
+		BitwardenCommand,
+		"create",
+		"folder",
+		base64.StdEncoding.EncodeToString(bwItemByte),
+	)
+
+	var stderr bytes.Buffer
+	command.SetStderr(&stderr)
+	if _, err := command.Output(); err != nil {
+		return ExecutionFailedError{
+			Command: "bw sync",
+			Message: fmt.Sprintf("%v: %s", err, stderr.String()),
+		}
+	}
+
+	log.Debugln("Created folder")
 
 	return nil
 }

@@ -21,10 +21,6 @@ func setupAddCommand(cmd *cobra.Command) {
 
 	cmd.Flags().String("public-key", "", "Public Key file")
 
-	if err := cmd.MarkFlagRequired("public-key"); err != nil {
-		log.Fatalf("Lethal damage: %s\n\n", err)
-	}
-
 	cmd.Flags().String("private-key", "", "Private Key file")
 
 	if err := cmd.MarkFlagRequired("private-key"); err != nil {
