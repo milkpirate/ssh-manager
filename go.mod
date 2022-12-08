@@ -8,8 +8,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.29.0
 	github.com/go-asset/build v0.0.1
 	github.com/golang/mock v1.6.0
+	github.com/google/uuid v1.3.0
 	github.com/omegion/cobra-commander v0.11.0
 	github.com/omegion/go-aws-v2-interface v0.3.0
+	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.0
 	github.com/stretchr/testify v1.8.1

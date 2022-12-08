@@ -35,12 +35,12 @@ func getProviderByName(name *string) provider.Interface {
 
 	switch *name {
 	case provider.BitwardenCommand:
-		return provider.Bitwarden{Commander: commander}
+		return &provider.Bitwarden{Commander: commander}
 	case provider.OnePasswordCommand:
 		return provider.OnePassword{Commander: commander}
 	case provider.S3ProviderName:
 		return provider.NewS3Provider()
 	default:
-		return provider.Bitwarden{Commander: commander}
+		return &provider.Bitwarden{Commander: commander}
 	}
 }
